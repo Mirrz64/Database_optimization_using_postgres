@@ -16,3 +16,14 @@ LEFT JOIN inventory.suppliers ON suppliers.drug_id = stock.drug_id
 WHERE stock.quantity <= 1000;
 
 -- 2. Supplier Value Report.
+CREATE VIEW analytics.supplier_value_report AS
+SELECT
+    s.name AS supplier_name,
+    COUNT(o.order_id) AS total_orders,
+    SUM(o.total_amount) AS total_revenue,
+    RANK() OVER (ORDER BY SUM(o.total_amount) DESC) AS revenue_rank
+FROM inventory.suppliers s
+JOIN inventory.drugs d ON s.supplier_id = supplier_id
+JOIN operations.orders o ON o.drug_id = d.drug_id
+GROUP BY s.name
+ORDER BY total_revenue DESC;
