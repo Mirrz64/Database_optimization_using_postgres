@@ -52,20 +52,8 @@ GRANT ALL PRIVILEGES ON SCHEMA analytics, inventory, operations, research TO dat
 GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA analytics, inventory, operations, research TO database_admin_role;
 GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA analytics, inventory, operations, research TO database_admin_role;
 
--- Business analyst permission
+-- Business Analyst Permission: Full access to the analytics schema and read-only access on operations, inventory.
 GRANT USAGE ON SCHEMA analytics, operations, inventory TO business_analyst_role;
 GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA analytics TO business_analyst_role;
 GRANT SELECT ON ALL TABLES IN SCHEMA operations, inventory TO business_analyst_role;
-
--- Create the users
-CREATE USER Anthony WITH PASSWORD 'omk*#123';  -- DBA
-CREATE USER Vincent with password '*moh492#';  -- RES
-CREATE USER Temitayo WITH PASSWORD 'Ace@123';  -- BA
-CREATE USER Crainsor with password '*moh492#';  -- DE
-
--- Grant permission to users based on their roles
-GRANT database_admin_role TO Anthony;
-Grant researcher_role TO Vincent;
-GRANT business_analyst_role TO Temitayo;
-Grant data_engineer_role TO Crainsor;
 
